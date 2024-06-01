@@ -1,0 +1,90 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: 'Creepster', cursive;
+}
+
+.App-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #1e1e1e;
+  border-bottom: 2px solid #2b8d04;
+}
+
+.App-header h1 {
+  margin: 0;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.logout-button, .cart-button {
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #2b8d04;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.logout-button:hover, .cart-button:hover {
+  background-color: #2b8d04;
+}
+
+.carrito-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.App-content {
+  display: flex;
+  flex: 1;
+}
+
+.content {
+  display: flex;
+  width: 100%;
+}
+
+.categories-list {
+  width: 25%;
+  background-color: #1e1e1e;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-right: 2px solid #2b8d04;
+}
+
+.products-list {
+  width: 75%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+}
+
+.registro-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
