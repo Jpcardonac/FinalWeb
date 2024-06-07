@@ -13,16 +13,21 @@ function Registro() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch('http://localhost:3001/usuarios', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nombre, apellido, email, telefono, direccion, ciudad, estado, pais })
-        });
-        const data = await response.json();
-        if (data.success) {
-            alert('Usuario registrado exitosamente');
-        } else {
-            alert('Error al registrar usuario');
+        try {
+            const response = await fetch('http://localhost:3001/api/usuarios', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombre, apellido, email, telefono, direccion, ciudad, estado, pais, rol: 'user' }) // Assuming default role is 'user'
+            });
+            const data = await response.json();
+            if (response.ok) {
+                alert('Usuario registrado exitosamente');
+            } else {
+                alert('Error al registrar usuario: ' + data.error);
+            }
+        } catch (error) {
+            console.error('Error al registrar usuario:', error);
+            alert('Ocurrió un error al registrar el usuario');
         }
     };
 

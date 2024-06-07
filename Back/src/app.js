@@ -1,4 +1,3 @@
-// app.js
 import express from 'express';
 import cors from 'cors';
 import UsuariosRoutes from './routes/Usuarios.routes.js';
@@ -9,9 +8,7 @@ import IndexRoutes from './routes/index.routes.js';
 
 const app = express();
 
-// Middleware para habilitar CORS
 app.use(cors());
-
 app.use(express.json());
 
 app.use('/api', UsuariosRoutes);

@@ -1,72 +1,53 @@
 import React, { useState } from 'react';
 import '../stilos/recovery.css';
 
-function Recovery() {
-    const [option, setOption] = useState('');
-    const [inputValue, setInputValue] = useState('');
-    const [message, setMessage] = useState('');
+function RecuperarContrasena() {
+    const [id_usuario, setIdUsuario] = useState('');
+    const [email, setEmail] = useState('');
 
-    const handleOptionChange = (event) => {
-        setOption(event.target.value);
-    };
-
-    const handleChange = (event) => {
-        setInputValue(event.target.value);
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Aquí puedes implementar la lógica para enviar la contraseña por correo electrónico o SMS
-        // Dependiendo de la opción seleccionada y el valor del input
-        if (option === 'email') {
-            // Lógica para enviar la contraseña por correo electrónico
-            setMessage('Contraseña enviada por correo electrónico');
-        } else if (option === 'phone') {
-            // Lógica para enviar la contraseña por SMS
-            setMessage('Contraseña enviada por SMS');
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch('http://localhost:3001/api/recuperar-contrasena', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id_usuario, email })
+            });
+            const data = await response.json();
+            if (response.ok) {
+                alert('Nueva contraseña enviada a tu correo electrónico');
+            } else {
+                alert('Error al recuperar la contraseña: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Error al recuperar la contraseña:', error);
+            alert('Ocurrió un error al recuperar la contraseña');
         }
     };
 
     return (
-        <div className="recovery-container">
-            <h2>Recupera tu contraseña</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="option-radio">
-                    <input 
-                        type="radio" 
-                        id="email" 
-                        name="option" 
-                        value="email" 
-                        checked={option === 'email'} 
-                        onChange={handleOptionChange} 
-                    />
-                    <label htmlFor="email">Correo</label>
-                    <input 
-                        type="radio" 
-                        id="phone" 
-                        name="option" 
-                        value="phone" 
-                        checked={option === 'phone'} 
-                        onChange={handleOptionChange} 
-                    />
-                    <label htmlFor="phone">Teléfono</label>
-                </div>
-                {option && (
-                    <div className="input-field">
-                        <label>{option === 'email' ? 'Correo electrónico:' : 'Teléfono:'}</label>
-                        <input 
-                            type={option === 'email' ? 'email' : 'tel'} 
-                            value={inputValue} 
-                            onChange={handleChange} 
-                            required 
-                        />
-                    </div>
-                )}
-                <button type="submit">Solicitar</button>
-            </form>
-            {message && <p>{message}</p>}
-        </div>
+        <form onSubmit={handleSubmit}>
+            <div>
+                <label>ID de Usuario:</label>
+                <input 
+                    type="text" 
+                    value={id_usuario}
+                    onChange={(e) => setIdUsuario(e.target.value)} 
+                    required 
+                />
+            </div>
+            <div>
+                <label>Email:</label>
+                <input 
+                    type="email" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)} 
+                    required 
+                />
+            </div>
+            <button type="submit">Recuperar Contraseña</button>
+        </form>
     );
 }
 
-export default Recovery;
+export default RecuperarContrasena;
